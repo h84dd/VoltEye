@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VoltEye | Smart Electrical Monitoring</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="hero card">
+      <div class="hero-copy">
+        <span class="pill">VoltEye Research Demo</span>
+        <h1>Smart Electrical Monitoring and Fault Inference</h1>
+        <p>
+          A polished real-time dashboard for residential electrical monitoring,
+          fault detection, and suspected device inference using aggregated panel data.
+        </p>
+        <div class="hero-tags">
+          <span class="tag">Panel Analytics</span>
+          <span class="tag">Fault Detection</span>
+          <span class="tag">Power Quality</span>
+          <span class="tag">Research-Ready UI</span>
+        </div>
+      </div>
+
+      <div class="hero-actions">
+        <button id="startBtn" class="btn btn-success">Start Live</button>
+        <button id="stopBtn" class="btn btn-danger">Stop</button>
+        <button id="stepBtn" class="btn btn-primary">Single Read</button>
+        <button id="scenarioBtn" class="btn btn-warning">Inject Fault</button>
+      </div>
+    </header>
+
+    <section class="metrics-grid">
+      <article class="metric card">
+        <div class="metric-label">Current</div>
+        <div id="currentValue" class="metric-value info">0.00 A</div>
+        <div class="metric-sub">Total line current</div>
+      </article>
+      <article class="metric card">
+        <div class="metric-label">Voltage</div>
+        <div id="voltageValue" class="metric-value info">0.0 V</div>
+        <div class="metric-sub">Measured line voltage</div>
+      </article>
+      <article class="metric card">
+        <div class="metric-label">Power</div>
+        <div id="powerValue" class="metric-value violet">0 W</div>
+        <div class="metric-sub">Estimated real power</div>
+      </article>
+      <article class="metric card">
+        <div class="metric-label">Power Factor</div>
+        <div id="pfValue" class="metric-value ok">1.00</div>
+        <div class="metric-sub">PF indicator</div>
+      </article>
+      <article class="metric card">
+        <div class="metric-label">THD</div>
+        <div id="thdValue" class="metric-value warn">0.0%</div>
+        <div class="metric-sub">Harmonic distortion</div>
+      </article>
+      <article class="metric card">
+        <div class="metric-label">Leakage</div>
+        <div id="leakageValue" class="metric-value ok">0.0 mA</div>
+        <div class="metric-sub">Leakage current estimate</div>
+      </article>
+      <article class="metric card">
+        <div class="metric-label">Risk Score</div>
+        <div id="riskValue" class="metric-value warn">0%</div>
+        <div class="metric-sub">Overall anomaly level</div>
+      </article>
+      <article class="metric card">
+        <div class="metric-label">Top Suspect</div>
+        <div id="suspectHeroValue" class="metric-value danger metric-small">None</div>
+        <div class="metric-sub">Most likely source</div>
+      </article>
+    </section>
+
+    <section class="content-grid">
+      <section class="card panel">
+        <div class="panel-head">
+          <div>
+            <h2>Analysis Result</h2>
+            <p class="muted">Real-time interpretation of electrical behaviour</p>
+          </div>
+          <span id="statusBadge" class="status-badge status-ok">Ready</span>
+        </div>
+
+        <div class="analysis-grid">
+          <div class="info-card">
+            <div class="info-label">Fault Type</div>
+            <div id="faultTypeValue" class="info-value">Normal Operation</div>
+          </div>
+          <div class="info-card">
+            <div class="info-label">Suspected Device</div>
+            <div id="suspectValue" class="info-value">None</div>
+          </div>
+          <div class="info-card wide">
+            <div class="info-label">Recommended Action</div>
+            <div id="recommendationValue" class="info-copy">Start the system to begin live monitoring and analysis.</div>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div>
+          <h3>Detected Flags</h3>
+          <div id="flagsList" class="chips"></div>
+        </div>
+      </section>
+
+      <section class="card panel">
+        <div class="panel-head">
+          <div>
+            <h2>Device Ranking</h2>
+            <p class="muted">Likelihood ranking based on aggregated panel behaviour</p>
+          </div>
+        </div>
+        <div id="rankingList" class="stack"></div>
+      </section>
+    </section>
+
+    <section class="chart-grid">
+      <section class="card panel">
+        <div class="panel-head">
+          <div>
+            <h2>Current Trend</h2>
+            <p class="muted">Latest live samples from the monitoring engine</p>
+          </div>
+        </div>
+        <canvas id="currentChart"></canvas>
+      </section>
+
+      <section class="card panel">
+        <div class="panel-head">
+          <div>
+            <h2>System Log</h2>
+            <p class="muted">Recent events and inferred states</p>
+          </div>
+        </div>
+        <div id="logList" class="stack log-stack"></div>
+      </section>
+    </section>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
