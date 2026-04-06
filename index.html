@@ -1,147 +1,243 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>VoltEye | Smart Electrical Monitoring</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>VoltEye AI+ | Adaptive Electrical Diagnostics</title>
+  <link rel="stylesheet" href="css/style.css" />
 </head>
-<body>
-  <div class="app-shell">
-    <header class="hero card">
-      <div class="hero-copy">
-        <span class="pill">VoltEye Research Demo</span>
-        <h1>Smart Electrical Monitoring and Fault Inference</h1>
-        <p>
-          A polished real-time dashboard for residential electrical monitoring,
-          fault detection, and suspected device inference using aggregated panel data.
-        </p>
-        <div class="hero-tags">
-          <span class="tag">Panel Analytics</span>
-          <span class="tag">Fault Detection</span>
-          <span class="tag">Power Quality</span>
-          <span class="tag">Research-Ready UI</span>
+<body data-theme="dark">
+  <div id="splashScreen" class="screen splash-screen">
+    <div class="glass-card splash-card">
+      <div class="logo-orb"></div>
+      <h1>VoltEye AI+</h1>
+      <p>Adaptive Electrical Fault Diagnostics Platform</p>
+      <div class="loader-bar"><span id="splashBar"></span></div>
+    </div>
+  </div>
+
+  <div id="loginScreen" class="screen login-screen hidden">
+    <div class="glass-card login-panel">
+      <div class="login-brand">
+        <div class="logo-orb small"></div>
+        <div>
+          <h2>VoltEye AI+</h2>
+          <p>Smart Electrical Fault Diagnostics Dashboard</p>
         </div>
       </div>
+      <div class="form-grid">
+        <div class="field">
+          <label>Username</label>
+          <input id="loginUsername" type="text" placeholder="admin" />
+        </div>
+        <div class="field">
+          <label>Password</label>
+          <input id="loginPassword" type="password" placeholder="1234" />
+        </div>
+        <div class="hint">Demo credentials: <strong>admin / 1234</strong></div>
+        <button id="loginBtn" class="btn primary full">Login</button>
+      </div>
+    </div>
+  </div>
 
-      <div class="hero-actions">
-        <button id="startBtn" class="btn btn-success">Start Live</button>
-        <button id="stopBtn" class="btn btn-danger">Stop</button>
-        <button id="stepBtn" class="btn btn-primary">Single Read</button>
-        <button id="scenarioBtn" class="btn btn-warning">Inject Fault</button>
+  <div id="appRoot" class="app-shell hidden">
+    <header class="topbar">
+      <div>
+        <div class="brand">VoltEye AI+</div>
+        <div class="brand-subtitle">Self-Learning Electrical Monitoring & Diagnostics</div>
+      </div>
+      <div class="top-actions">
+        <span id="modeBadge" class="pill pill-blue">Simulation Mode</span>
+        <span id="themeBadge" class="pill">Dark Mode</span>
+        <span id="learningBadge" class="pill pill-green">0 Learned Cases</span>
+        <button id="aboutBtn" class="btn muted">About</button>
+        <button id="themeToggleBtn" class="btn accent">Dark / Light</button>
+        <button id="exportPdfBtn" class="btn warning">Export PDF</button>
+        <button id="logoutBtn" class="btn danger">Logout</button>
       </div>
     </header>
 
-    <section class="metrics-grid">
-      <article class="metric card">
-        <div class="metric-label">Current</div>
-        <div id="currentValue" class="metric-value info">0.00 A</div>
-        <div class="metric-sub">Total line current</div>
-      </article>
-      <article class="metric card">
-        <div class="metric-label">Voltage</div>
-        <div id="voltageValue" class="metric-value info">0.0 V</div>
-        <div class="metric-sub">Measured line voltage</div>
-      </article>
-      <article class="metric card">
-        <div class="metric-label">Power</div>
-        <div id="powerValue" class="metric-value violet">0 W</div>
-        <div class="metric-sub">Estimated real power</div>
-      </article>
-      <article class="metric card">
-        <div class="metric-label">Power Factor</div>
-        <div id="pfValue" class="metric-value ok">1.00</div>
-        <div class="metric-sub">PF indicator</div>
-      </article>
-      <article class="metric card">
-        <div class="metric-label">THD</div>
-        <div id="thdValue" class="metric-value warn">0.0%</div>
-        <div class="metric-sub">Harmonic distortion</div>
-      </article>
-      <article class="metric card">
-        <div class="metric-label">Leakage</div>
-        <div id="leakageValue" class="metric-value ok">0.0 mA</div>
-        <div class="metric-sub">Leakage current estimate</div>
-      </article>
-      <article class="metric card">
-        <div class="metric-label">Risk Score</div>
-        <div id="riskValue" class="metric-value warn">0%</div>
-        <div class="metric-sub">Overall anomaly level</div>
-      </article>
-      <article class="metric card">
-        <div class="metric-label">Top Suspect</div>
-        <div id="suspectHeroValue" class="metric-value danger metric-small">None</div>
-        <div class="metric-sub">Most likely source</div>
-      </article>
+    <section class="hero card">
+      <div class="hero-main">
+        <div>
+          <div class="eyebrow">Adaptive Demo / Graduation Project</div>
+          <h1>A system that learns from decisions and continuously improves diagnostic accuracy</h1>
+          <p>
+            It supports both simulation mode and real reading mode, collects user feedback, stores confirmed cases, and keeps active devices and demo readings running for nearly half a day in every mode to make analysis easier,
+            then uses <strong>Case-Based Learning</strong> with <strong>Adaptive Weights</strong> to improve prediction accuracy automatically.
+          </p>
+        </div>
+        <div class="hero-tags">
+          <span class="tag">Self-Learning</span>
+          <span class="tag">Case Memory</span>
+          <span class="tag">Adaptive Weights</span>
+          <span class="tag">Simulation / Real</span>
+          <span class="tag">PDF Reports</span>
+          <span class="tag">Fault Location</span>
+        </div>
+      </div>
     </section>
 
-    <section class="content-grid">
-      <section class="card panel">
-        <div class="panel-head">
-          <div>
-            <h2>Analysis Result</h2>
-            <p class="muted">Real-time interpretation of electrical behaviour</p>
-          </div>
-          <span id="statusBadge" class="status-badge status-ok">Ready</span>
+    <section class="stats-grid">
+      <div class="stat-card"><div class="label">Current Mode</div><div id="mCurrentMode" class="value info">Simulation</div><div class="sub">Mode</div></div>
+      <div class="stat-card"><div class="label">Time / Reading</div><div id="mTime" class="value info">06:00</div><div class="sub">Time Label</div></div>
+      <div class="stat-card"><div class="label">Devices / Channels</div><div id="mActive" class="value info">0</div><div class="sub">Active Sources</div></div>
+      <div class="stat-card"><div class="label">Total Current</div><div id="mCurrent" class="value info">0.00 A</div><div class="sub">Current</div></div>
+      <div class="stat-card"><div class="label">Power</div><div id="mPower" class="value violet">0 W</div><div class="sub">Power</div></div>
+      <div class="stat-card"><div class="label">Risk</div><div id="mRisk" class="value warn">0%</div><div class="sub">Risk</div></div>
+      <div class="stat-card"><div class="label">Top Suspected Device</div><div id="mSuspect" class="value danger stat-suspect">None</div><div class="sub">Top Suspect</div></div>
+      <div class="stat-card"><div class="label">Fault Location</div><div id="mFaultLocation" class="value info stat-suspect">Unknown</div><div class="sub">Fault Location</div></div>
+    </section>
+
+    <main class="main-grid">
+      <section class="card">
+        <div class="section-head"><h2>Control and Operation</h2><p>Control Center</p></div>
+        <div class="mode-switcher">
+          <button id="simModeBtn" class="mode-btn active">Simulation Mode</button>
+          <button id="realModeBtn" class="mode-btn">Real Reading Mode</button>
+        </div>
+        <div id="modeDescription" class="helper-note">Current Mode: محاكاة ثابتة ببيانات ديمو محفوظة.</div>
+        <div class="controls">
+          <button id="startBtn" class="btn success">Start</button>
+          <button id="stopBtn" class="btn danger">Stop</button>
+          <button id="stepBtn" class="btn primary">Step / Single Reading</button>
+          <select id="speedSelect" class="select">
+            <option value="5">5 min / step</option>
+            <option value="10">10 min / step</option>
+            <option value="15" selected>15 دقيقة / خطوة</option>
+            <option value="30">30 دقيقة / خطوة</option>
+          </select>
+          <button class="btn accent" data-jump="360">06:00</button>
+          <button class="btn accent" data-jump="720">12:00</button>
+          <button class="btn accent" data-jump="1080">18:00</button>
+          <button class="btn accent" data-jump="1260">21:00</button>
+          <button id="injectFaultBtn" class="btn warning">Inject Fault</button>
+          <button id="clearFaultBtn" class="btn muted">Clear Faults</button>
+          <button id="resetBtn" class="btn muted">Reset</button>
         </div>
 
-        <div class="analysis-grid">
-          <div class="info-card">
-            <div class="info-label">Fault Type</div>
-            <div id="faultTypeValue" class="info-value">Normal Operation</div>
-          </div>
-          <div class="info-card">
-            <div class="info-label">Suspected Device</div>
-            <div id="suspectValue" class="info-value">None</div>
-          </div>
-          <div class="info-card wide">
-            <div class="info-label">Recommended Action</div>
-            <div id="recommendationValue" class="info-copy">Start the system to begin live monitoring and analysis.</div>
-          </div>
+        <div class="mini-grid">
+          <div class="mini-box"><div class="mini-label">Time Period</div><div id="periodBox" class="mini-value">Morning</div></div>
+          <div class="mini-box"><div class="mini-label">Occupancy</div><div id="occupancyBox" class="mini-value">Medium</div></div>
+          <div class="mini-box"><div class="mini-label">Temperature</div><div id="tempBox" class="mini-value">30°</div></div>
+          <div class="mini-box"><div class="mini-label">Status Description</div><div id="modeBox" class="mini-value">روتين Morningي</div></div>
+          <div class="mini-box"><div class="mini-label">Injected Fault</div><div id="injectedFaultBox" class="mini-value">None</div></div>
+          <div class="mini-box"><div class="mini-label">Injection Location</div><div id="injectedFaultLocationBox" class="mini-value">Unknown</div></div>
         </div>
 
         <div class="divider"></div>
-
-        <div>
-          <h3>Detected Flags</h3>
-          <div id="flagsList" class="chips"></div>
-        </div>
+        <div class="section-head small"><h3>Devices / Channels النشطة</h3><p>Live Sources</p></div>
+        <div id="activeDevices" class="stack-list"></div>
       </section>
 
-      <section class="card panel">
-        <div class="panel-head">
-          <div>
-            <h2>Device Ranking</h2>
-            <p class="muted">Likelihood ranking based on aggregated panel behaviour</p>
-          </div>
+      <section class="card">
+        <div class="section-head"><h2>Analysis and Inference</h2><p>Diagnostics Engine</p></div>
+        <div id="banner" class="banner ok">System ready.</div>
+        <div class="analysis-grid">
+          <div class="analysis-box"><div class="mini-label">Most Suspected Device</div><div id="topSuspectName" class="analysis-value">None مشتبه واضح</div></div>
+          <div class="analysis-box"><div class="mini-label">Issue Type</div><div id="topIssue" class="analysis-value">Normal operation</div></div>
+          <div class="analysis-box"><div class="mini-label">Fault Location المرجح</div><div id="topFaultLocation" class="analysis-value">Unknown</div></div>
+          <div class="analysis-box"><div class="mini-label">Confidence Level</div><div id="confidenceBox" class="analysis-value">0%</div></div>
+          <div class="analysis-box full"><div class="mini-label">Recommendation</div><div id="topRecommendation" class="analysis-value recommendation">There is not enough evidence to identify a fault.</div></div>
+          <div class="analysis-box full"><div class="mini-label">System Signals</div><div id="systemFlags" class="chips"></div></div>
         </div>
-        <div id="rankingList" class="stack"></div>
+        <div class="divider"></div>
+        <div class="detail-grid">
+          <div class="detail-box"><div class="mini-label">Voltage</div><div id="dVoltage" class="mini-value info">230 V</div></div>
+          <div class="detail-box"><div class="mini-label">Leakage</div><div id="dLeakage" class="mini-value ok">0 mA</div></div>
+          <div class="detail-box"><div class="mini-label">THD</div><div id="dThd" class="mini-value warn">0%</div></div>
+          <div class="detail-box"><div class="mini-label">PF</div><div id="dPf" class="mini-value ok">1.00</div></div>
+        </div>
+        <div class="divider"></div>
+        <div class="section-head small"><h3>Suspect Ranking</h3><p>Suspect Ranking</p></div>
+        <div id="ranking" class="stack-list"></div>
       </section>
+    </main>
+
+    <section class="card chart-card">
+      <div class="section-head"><h2>Current Trend</h2><p>Measured Current Timeline</p></div>
+      <canvas id="chart"></canvas>
+      <div class="chart-note">Left: current in amperes (A), bottom: time/reading, red: approximate warning threshold.</div>
     </section>
 
-    <section class="chart-grid">
-      <section class="card panel">
-        <div class="panel-head">
-          <div>
-            <h2>Current Trend</h2>
-            <p class="muted">Latest live samples from the monitoring engine</p>
+    <section class="bottom-grid">
+      <section class="card">
+        <div class="section-head small"><h3>System Learning</h3><p>Feedback & Self-Learning</p></div>
+        <div class="feedback-panel">
+          <div class="helper-note">
+            في Simulation Mode: النظام يتحقق ويحفظ ويتعلم تلقائيًا بدون تدخل يدوي. في Real Reading Mode: يمكنك التأكيد أو التصحيح يدويًا عند الحاجة.
+          </div>
+          <div class="controls compact">
+            <button id="confirmPredictionBtn" class="btn success">✅ Prediction is Correct</button>
+            <button id="openCorrectionBtn" class="btn warning">✍️ Correct Prediction</button>
+            <button id="exportDatasetJsonBtn" class="btn accent">⬇️ Export JSON</button>
+            <button id="exportDatasetCsvBtn" class="btn primary">⬇️ Export CSV</button>
+            <button id="clearLearningBtn" class="btn danger">🗑️ Clear Learning</button>
+          </div>
+          <div class="helper-note">
+            Simulation now saves cases automatically in a local dataset, including the correct fault and location from the simulator ground truth. You can later export the results as JSON or CSV for external analysis.
+          </div>
+          <div id="correctionPanel" class="correction-panel hidden">
+            <div class="field"><label>Correct Device</label><select id="correctDeviceSelect" class="select full"></select></div>
+            <div class="field"><label>Correct Fault Type</label>
+              <select id="correctFaultTypeSelect" class="select full">
+                <option value="overload">Overload</option>
+                <option value="leakage">Leakage</option>
+                <option value="arc">Arc Fault</option>
+                <option value="voltage">Voltage Disturbance</option>
+                <option value="normal">Normal</option>
+              </select>
+            </div>
+            <div class="field"><label>Fault Location الصحيح</label><input id="correctLocationInput" type="text" placeholder="Example: Living Room | AC Zone | AC-01" /></div>
+            <button id="saveCorrectionBtn" class="btn primary full">Save Correction and Train System</button>
+          </div>
+          <div class="learning-grid">
+            <div class="mini-box"><div class="mini-label">Learned Cases Count</div><div id="learnedCasesBox" class="mini-value">0</div></div>
+            <div class="mini-box"><div class="mini-label">Dataset Records Count</div><div id="datasetRecordsBox" class="mini-value">0</div></div>
+            <div class="mini-box"><div class="mini-label">Feedback Accuracy</div><div id="feedbackAccuracyBox" class="mini-value">0%</div></div>
+            <div class="mini-box"><div class="mini-label">Best Learned Fault Type</div><div id="bestLearnedFaultBox" class="mini-value">-</div></div>
+            <div class="mini-box"><div class="mini-label">Case Memory Strength</div><div id="memoryStrengthBox" class="mini-value">0</div></div>
           </div>
         </div>
-        <canvas id="currentChart"></canvas>
       </section>
 
-      <section class="card panel">
-        <div class="panel-head">
-          <div>
-            <h2>System Log</h2>
-            <p class="muted">Recent events and inferred states</p>
-          </div>
-        </div>
-        <div id="logList" class="stack log-stack"></div>
+      <section class="card">
+        <div class="section-head small"><h3>Activity Log</h3><p>Activity Log</p></div>
+        <div id="log" class="log-list"></div>
       </section>
     </section>
   </div>
 
-  <script src="app.js"></script>
+  <div id="aboutModal" class="modal hidden">
+    <div class="modal-backdrop"></div>
+    <div class="modal-panel">
+      <div class="section-head"><h3>About Project</h3><button id="closeAboutBtn" class="icon-btn">✕</button></div>
+      <div class="modal-body">
+        <p><strong>VoltEye AI+</strong> is an electrical fault diagnosis system that runs locally in the browser.</p>
+        <ul>
+          <li>Stable, demo-ready simulation mode</li>
+          <li>Real reading mode via API or WebSocket</li>
+          <li>Fault-signature-based analysis</li>
+          <li>Self-learning from user confirmations and corrections</li>
+          <li>Local case storage in LocalStorage</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div id="pdfReportRoot" class="pdf-root"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/simulation.js"></script>
+  <script src="js/real-data.js"></script>
+  <script src="js/analysis.js"></script>
+  <script src="js/learning-engine.js"></script>
+  <script src="js/chart-manager.js"></script>
+  <script src="js/report.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/app.js"></script>
 </body>
 </html>
